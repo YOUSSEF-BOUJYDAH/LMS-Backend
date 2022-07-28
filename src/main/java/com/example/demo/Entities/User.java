@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Data
@@ -15,11 +16,21 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    Long id ;
+    private Long id ;
     @Column()
-    String username;
+    private String username;
     @Column()
     String password;
     @ManyToMany(cascade = CascadeType.ALL)
-    Set<Role> roles=new HashSet<Role>();
+    private Set<Role> roles=new HashSet<Role>();
+
+   public void addRole(Role r){
+        this.roles.add(r);
+    }
+    public void removeRole(Role r){
+        this.roles.remove(r);
+    }
+    public void removeRoles(){
+
+    }
 }

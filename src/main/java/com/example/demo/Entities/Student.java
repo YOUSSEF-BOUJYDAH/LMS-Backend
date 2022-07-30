@@ -11,8 +11,19 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor@NoArgsConstructor@Data
 public class Student extends User{
     private String CNE;
+    private int etat=0;
     @ManyToOne()
     private Filiere filiere;
+
+    public void setAffected(){
+        this.setEtat(1);
+    }
+    public void setDemanded(){
+        this.setEtat(0);
+    }
+    public void setRefused(){
+        this.setEtat(-1);
+    }
     @Override
     public boolean equals(Object obj) {
         if(obj == null) {
@@ -29,6 +40,6 @@ public class Student extends User{
     }
     @Override
     public int hashCode() {
-        return 2022;
+        return this.getClass().hashCode();
     }
 }

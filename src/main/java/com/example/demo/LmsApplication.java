@@ -1,9 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.Entities.Student;
-import com.example.demo.Entities.Role;
-import com.example.demo.Entities.Teacher;
-import com.example.demo.Entities.User;
+import com.example.demo.Entities.*;
+import com.example.demo.Repository.NiveauRepository;
 import com.example.demo.Repository.StudentRepository;
 import com.example.demo.Repository.TeacherRepository;
 import com.example.demo.Repository.userRepository;
@@ -20,6 +18,8 @@ public class LmsApplication implements CommandLineRunner{
 	TeacherRepository TR;
 	 @Autowired
 	 StudentRepository ER;
+	 @Autowired
+	NiveauRepository NR;
 	public static void main(String[] args) {
 		SpringApplication.run(LmsApplication.class, args);
 	}
@@ -29,6 +29,19 @@ public class LmsApplication implements CommandLineRunner{
             Role r1 = new Role(null,"Admin");
 			Role r2 = new Role(null,"Prof");
             Role r3 = new Role(null,"student");
+
+		Niveau n1=new Niveau();
+		Niveau n2=new Niveau();
+		Niveau n3=new Niveau();
+        n1.setDiplome("Licence");
+		n1.setTitre("troisieme annee");
+		n2.setDiplome("Master ");
+		n2.setTitre("premiere annee");
+		n3.setDiplome("Master");
+		n3.setTitre("deuxieme annee");
+		NR.save(n1);
+		NR.save(n2);
+		NR.save(n3);
 			User u = new User();
 		    Teacher t=new Teacher();
             Student e=new Student();

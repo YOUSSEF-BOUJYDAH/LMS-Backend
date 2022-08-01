@@ -8,7 +8,6 @@ import com.example.demo.Repository.NiveauRepository;
 import com.example.demo.Services.FiliereService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
@@ -16,8 +15,7 @@ import java.util.Set;
 public class FiliereServiceImp implements FiliereService {
     @Autowired
     private FiliereRepository FR;
-    @Autowired
-    private NiveauRepository NR;
+
     public Filiere getOne(Long id){
         return FR.findById(id).get();
     }
@@ -31,29 +29,14 @@ public class FiliereServiceImp implements FiliereService {
     {
         FR.delete(s);
     }
-    public Filiere add( Filiere f,Long id){
-        Niveau n=NR.findById(id).get();
-        Filiere filiere=FR.save(f);
-        System.out.println("  "+filiere.getId());
-        n.addFiliere(filiere);
-        NR.save(n);
-        return FR.findById(filiere.getId()).get();
+    public Filiere add( Filiere f){
+        return FR.save(f);
     }
 
     @Override
-    public List<Student> getRejectedStudents(Long id) {
-        return this.FR.findById(id).get().getExlcusedStudent();
-    }
-    @Override
-    public List<Student> getDemandeStudents(Long id) {
-        return this.FR.findById(id).get().getDemandeStudent();
-    }
-    @Override
-    public List<Student> getAffectedStudents(Long id) {
-        return this.FR.findById(id).get().getAffecteStudent();
+    public Set<Niveau> getNiveaux(Long id) {
+        return this.FR.findById(id).get().getNiveaux();
     }
 
-    public Set<Student> getStudents(Long id) {
-        return this.FR.findById(id).get().getStudents();
-    }
+
 }

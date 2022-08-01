@@ -1,8 +1,11 @@
 package com.example.demo.ServicesImp;
 
 import com.example.demo.Entities.Filiere;
+import com.example.demo.Entities.Niveau;
 import com.example.demo.Entities.Student;
 import com.example.demo.Repository.FiliereRepository;
+import com.example.demo.Repository.NiveauRepository;
+import com.example.demo.Repository.RoleRepository;
 import com.example.demo.Repository.StudentRepository;
 import com.example.demo.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,9 @@ public class StudentServiceImp implements StudentService {
     @Autowired
     private StudentRepository SR;
     @Autowired
-    private FiliereRepository FR;
+    private RoleRepository RR;
+    @Autowired
+    private NiveauRepository NR;
     public Student getOne( Long id){
         return SR.findById(id).get();
     }
@@ -36,15 +41,22 @@ public class StudentServiceImp implements StudentService {
     }
 
     public Student add(Student s, Long id){
-        Filiere f=this.FR.findById(id).get();
+        System.out.println(1);
+        Niveau f=this.NR.findById(id).get();
+        System.out.println(2);
+        s.getRoles().add(RR.findByName("student"));
+        System.out.println(3);
         Student ss=this.SR.save(s);
+        System.out.println(4);
         f.addStudent(ss);
-        this.FR.save(f);
+        System.out.println(5);
+        this.NR.save(f);
+        System.out.println(6);
         return this.SR.findById(ss.getId()).get();
     }
 
     @Override
-    public void setDemande(Long id) {
+    public void setDemanded(Long id) {
         Student s= this.SR.findById(id).get();
         s.setDemanded();
         this.SR.save(s);

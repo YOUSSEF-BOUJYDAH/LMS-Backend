@@ -1,5 +1,6 @@
 package com.example.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,11 +11,11 @@ import javax.persistence.ManyToOne;
 @Entity
 @AllArgsConstructor@NoArgsConstructor@Data
 public class Student extends User{
-    private String CNE;
+    private String cne;
     private int etat=0;
     @ManyToOne()
-    private Filiere filiere;
-
+    @JsonIgnore
+    private Niveau niveau;
     public void setAffected(){
         this.setEtat(1);
     }

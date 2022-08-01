@@ -37,25 +37,13 @@ public class FiliereController {
     {
         FS.remove(s);
     }
-    @PostMapping("/add/{id}")
-    Filiere add(@RequestBody Filiere f,@PathVariable("id")Long id){
-        return FS.add(f,id);
+    @PostMapping("/add")
+    Filiere add(@RequestBody Filiere f){
+        return FS.add(f);
     }
-    @GetMapping("/get/{id}/Student")
-    Set<Student> getStudents(@PathVariable("id") Long id){
-        return FS.getStudents(id);
-    }
-    @GetMapping("/get/{id}/Demanded")
-    List<Student> getDemanded(@PathVariable("id") Long id){
-        return FS.getDemandeStudents(id);
-    }
-    @GetMapping("/get/{id}/Affected")
-    List<Student> getAffected(@PathVariable("id") Long id){
-        return FS.getAffectedStudents(id);
-    }
-    @GetMapping("/get/{id}/Refused")
-    List<Student> getRefused(@PathVariable("id") Long id){
-        return FS.getRejectedStudents(id);
+    @GetMapping("/get/{id}/Niveaux")
+    Set<Niveau> getNiveaux(@PathVariable("id") Long id){
+        return FS.getNiveaux(id);
     }
 }
 

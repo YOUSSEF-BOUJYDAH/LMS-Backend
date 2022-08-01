@@ -12,7 +12,7 @@ public interface StudentService {
     void update(Student u);
     void remove(Student s);
     Student add(Student f ,Long id);
-    void setDemande(Long id);
+    void setDemanded(Long id);
     void setAffected(Long id);
     void setrefused(Long id);
 }

@@ -20,53 +20,13 @@ public class Filiere implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String titre;
-    @ManyToOne()
-    private Niveau niveau ;
+    private String diplome;
+    @OneToMany(mappedBy = "filiere" , cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @JsonIgnore
+    private Set<Niveau> niveaux=new HashSet<Niveau>() ;
     @OneToOne(mappedBy = "maFiliere")
     private Teacher chefFiliere;
-    @OneToMany(mappedBy = "filiere")
-    @JsonIgnore
-    private Set<Student>  students=new HashSet<Student>();
-    public void addStudent(Student s){
-        s.setFiliere(this);
-        this.students.add(s);
-    }
-   public void removeStudent(Student s){
-        s.setFiliere(null);
-        this.students.remove(s);
-    }
-    public  void removeStudents(){
-        Iterator<Student> iterator = this.students.iterator();
-        while (iterator.hasNext()) {
-            Student std = iterator.next();
-            std.setFiliere(null);
-            iterator.remove();
-        }
-    }
-    public List<Student> getDemandeStudent(){
-        List<Student> l= new ArrayList<Student>();
-        for(Student s:this.getStudents()){
-            if (s.getEtat()==0)
-                l.add(s);
-        }
-        return l;
-    }
-    public List<Student> getAffecteStudent(){
-        List<Student> l= new ArrayList<Student>();
-        for(Student s:this.getStudents()){
-            if (s.getEtat()==1)
-                l.add(s);
-        }
-        return l;
-    }
-    public  List<Student> getExlcusedStudent(){
-        List<Student> l= new ArrayList<Student>();
-        for(Student s:this.getStudents()){
-            if (s.getEtat()==-1)
-                l.add(s);
-        }
-        return l;
-    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj == null) {
@@ -83,7 +43,23 @@ public class Filiere implements Serializable {
     }
     @Override
     public int hashCode() {
-        return 2022;
+        return this.getClass().hashCode();
+    }
+    public void addNiveau(Niveau n){
+        n.setFiliere(this);
+        this.niveaux.add(n);
+    }
+    public void removeNiveau(Niveau f){
+        f.setFiliere(null);
+        this.niveaux.remove(f);
+    }
+    public void removeNiveaux(){
+        Iterator<Niveau> iterator = this.niveaux.iterator();
+        while (iterator.hasNext()) {
+            Niveau f = iterator.next();
+            f.setFiliere(null);
+            iterator.remove();
+        }
     }
 
 }

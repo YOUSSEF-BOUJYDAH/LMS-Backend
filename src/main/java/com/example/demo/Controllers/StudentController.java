@@ -35,11 +35,12 @@ public class StudentController {
     }
     @PostMapping("/add/{id}")
     Student add(@RequestBody Student s,@PathVariable("id")Long id){
+        System.out.println(id +"   "+s.getId()+"    "+s.getPassword()+"   "+s.getUsername());
         return SS.add(s,id);
     }
-    @PutMapping("/setDemande/{id}")
+    @PutMapping("/setDemanded/{id}")
     void setDemande(@PathVariable("id")Long id){
-        SS.setDemande(id);
+        SS.setDemanded(id);
     }
     @PutMapping("/setAffected/{id}")
     void setAffected(@PathVariable("id")Long id){
